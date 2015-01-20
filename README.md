@@ -1,7 +1,5 @@
 # Pizzeria App
 
-FORKED FROM : 
-
 I am using:
 
 * [AngularJS](http://angularjs.org)
