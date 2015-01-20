@@ -11,23 +11,26 @@ var express = require('express'),
     favicon = require('static-favicon'),
     logger = require('morgan'),
     cookieParser = require('cookie-parser'),
-    bodyParser = require('body-parser');
-
-// set up our JSON API for later
-require('./routes/api')(app);
+    bodyParser = require('body-parser'),
+    store = require('./store.js'),
+    worker = require('./worker.js');
 
 // set up our socket server
-require('./sockets/base')(io);
+require('./sockets.js')(io);
+worker(io.sockets);
 
 // start the server
 server.listen(3000);
 
 // optional - set socket.io logging level
-io.set('log level', 1000);
+io.set('log level', 1);
 
-// view engine setup (for later)
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
+
+app.get('/api/pizzas', function(req, res) {
+  res.status(200).json({pizzas: store.getAll()});
+});
 
 // middleware settings
 app.use(favicon());
@@ -51,30 +54,5 @@ app.use(function (req, res, next) {
   err.status = 404;
   next(err);
 });
-
-/// error handlers
-
-// development error handler
-// will print stacktrace
-if (app.get('env') === 'development') {
-  app.use(function (err, req, res, next) {
-    res.status(err.status || 500);
-    res.render('error', {
-      message: err.message,
-      error: err
-    });
-  });
-}
-
-// production error handler
-// no stacktraces leaked to user
-app.use(function (err, req, res, next) {
-  res.status(err.status || 500);
-  res.render('error', {
-    message: err.message,
-    error: {}
-  });
-});
-
 
 module.exports = app;

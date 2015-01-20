@@ -18,36 +18,57 @@
 <link rel="stylesheet" href="styles/main.css">
 <!-- endbuild -->
 </head>
-<body ng-app="chatApp">
-<h1>Angular Chatter</h1>
+<body ng-app="pizzeriaApp">
+<h1>Pizzeria</h1>
 
-<div class='container'>
-  <div ng-controller='SocketCtrl'>
-    You are known as: <span ng-bind="nickName"></span>.<br/>Change your nickname with <code>/nick [yourNewNick]</code>
-    <div class='row'>
-      <div class='col-md-9'>
-        <textarea style='width: 100%; height: 200px' ng-disable='true' ng-model='messageLog'></textarea>
+<div class='container' ng-controller='MainCtrl'>
+  <div class='row'>
+    <div class='col-md-4'>
+      Size
+    </div>
+    <div class='col-md-6'>
+      <div class="btn-group" role="group">
+        <button type="button" class="btn btn-default" ng-class="getClassFor('small')" ng-click="size='small'">Small</button>
+        <button type="button" class="btn btn-default" ng-class="getClassFor('medium')" ng-click="size='medium'">Medium</button>
+        <button type="button" class="btn btn-default" ng-class="getClassFor('large')" ng-click="size='large'">Large</button>
       </div>
     </div>
-    <div class='row'>
-      &nbsp;
+  </div>
+  <div class='row'>
+    <div class='col-md-4'>
+      Number of toppings
     </div>
-    <div class='row'>
-      <div class='col-md-8'>
-        <form role='form' novalidate name='form'>
-          <div class='form-group'>
-            <input type='text' style='width: 80%' 
-            required
-            ng-max='50' 
-            ng-model='message' 
-            focus>
-            <button class='btn btn-sm btn-primary' 
-              ng-enable='form.$valid'
-              ng-click="sendMessage(message)">Send!</button>
-          </div>
-        </form>
-      </div>
+    <div class='col-md-6'>
+      <button type="button" class="btn btn-default" ng-click="updateToppings(-1)">-</button>
+      <span ng-bind='toppings'></span>
+      <button type="button" class="btn btn-default" ng-click="updateToppings(1)">+</button>
     </div>
+  </div>
+  <div class='row'>
+    <div class='col-md-4'>
+      <button type="button" class="btn btn-primary" ng-click="addPizza()">add</button>
+    </div>
+  </div>
+
+  <div class='table-responsive'>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Size</th>
+          <th># Toppings</th>
+          <th>Last Update</th>
+          <th>Whats happening?</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat='pizza in pendingPizzas'>
+          <td>{{pizza.size}}</td>
+          <td>{{pizza.toppings}}</td>
+          <td>{{pizza.state.message}} ({{pizza.state.name}})</td>
+          <td>{{pizza.inProgress}}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </div>
 <hr/>
@@ -71,7 +92,7 @@
 
 <!-- build:js({.tmp,app}) scripts/scripts.js -->
 <script src="scripts/app.js"></script>
-<script src="scripts/controllers/socket.js"></script>
+<script src="scripts/controllers/main.js"></script>
 <script src="scripts/services/socket.js"></script>
 <script src="scripts/services/messageformatter.js"></script>
 <!-- endbuild -->

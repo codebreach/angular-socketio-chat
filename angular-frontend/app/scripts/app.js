@@ -1,7 +1,7 @@
 'use strict';
 
 angular
-  .module('chatApp', [
+  .module('pizzeriaApp', [
     'ngCookies',
     'ngResource',
     'ngSanitize',

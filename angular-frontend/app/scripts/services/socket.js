@@ -1,7 +1,9 @@
 'use strict';
-angular.module('chatApp')
-.factory('chatSocket', function (socketFactory) {
+angular.module('pizzeriaApp')
+.factory('pizzaSocket', function (socketFactory) {
       var socket = socketFactory();
       socket.forward('broadcast');
+      socket.forward('updatePizza');
+      socket.forward('newPizza');
       return socket;
-  });
+    });
