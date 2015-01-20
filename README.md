@@ -1,6 +1,6 @@
 # Pizzeria App
 
-I am using:
+## Stack
 
 * [AngularJS](http://angularjs.org)
 * [NodeJS](http://nodejs.org)
@@ -27,3 +27,8 @@ grunt --force
 cd ..
 node app.js
 ```
+## Changes from Upstream
+
+* Hand-written super simple in-memory 'store'
+* Use of `fake-queue` for in-memory queuing
+* /api/pizzas is the only JSON end point
