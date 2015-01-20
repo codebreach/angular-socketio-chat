@@ -17,7 +17,7 @@ I am using:
 
 `node app.js` or `DEBUG=sockets,queue,worker node app.js` to see interesting logs
 
-`http://localhost:3000/` has the working client. `/angular_dev` has the live updating client. Unfortunately the upstream repo had some hackery around this, so go thus it is necessary.
+`http://localhost:3000/` has the working client. `/angular_dev` has the live updating client. Unfortunately the upstream repo had some hackery around this :(
 
 To build a new production ready binary:
 
